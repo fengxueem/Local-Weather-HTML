@@ -8,7 +8,7 @@ $(document).ready(function() {
 		switch(tempUnit) {
 			case "C":
 				tempUnit = "F";
-				$("#temperature").text(currentTempInCelsius * 9 / 5 + 32);
+				$("#temperature").text(Math.trunc(100 * (currentTempInCelsius * 9 / 5 + 32)) / 100);
 				$("#tempUnit").removeClass("wi-celsius").addClass("wi-fahrenheit");
 				break;
 			case "F":
@@ -18,13 +18,28 @@ $(document).ready(function() {
 				break;
 		}
 	});
+	$("#update").click(function() {
+		if ($("#lon").val() == "" || $("#lat").val() == "") {
+			if (navigator.geolocation) {
+			    navigator.geolocation.getCurrentPosition(function(position) {
+			    	lat = "lat=" + position.coords.latitude;
+			    	lon = "lon=" + position.coords.longitude;
+			    	acquireWeather(lat, lon);
+			  	});
+			} else {
+				alert("Cannot access geolocation");
+			}
+		} else {
+	    	lat = "lat=" + $("#lat").val();
+	    	lon = "lon=" + $("#lon").val();
+			acquireWeather(lat, lon);
+		}
+	});
 	if (navigator.geolocation) {
 	    navigator.geolocation.getCurrentPosition(function(position) {
 	    	lat = "lat=" + position.coords.latitude;
 	    	lon = "lon=" + position.coords.longitude;
 	    	acquireWeather(lat, lon);
-	    	// alert("lat: " + lat + " lon: " + lon);
-	    	// $("#data").html("latitude: " + position.coords.latitude + " <br>longitude: " + position.coords.longitude);
 	  	});
 	} else {
 		alert("Cannot access geolocation");
@@ -35,8 +50,7 @@ function acquireWeather(lat, lon) {
 	$.ajax(fccWeatherAPI + lat + "&" + lon, {
 		success: function(result) {
 			$("#location").text(result.name);
-			currentTempInCelsius = result.main.temp;
-			$("#temperature").text(currentTempInCelsius);
+			updateTemp(result.main.temp);
 			$("#sunrise").text(new Date(result.sys.sunrise * 1000).toLocaleTimeString());
 			$("#sunset").text(new Date(result.sys.sunset * 1000).toLocaleTimeString());
 			$("#wind").text(result.wind.speed + "m/s");
@@ -47,25 +61,32 @@ function acquireWeather(lat, lon) {
 	});
 }
 
+function updateTemp(temperature) {
+	currentTempInCelsius = temperature;
+	tempUnit = "C";
+	$("#temperature").text(currentTempInCelsius);
+	$("#tempUnit").removeClass("wi-fahrenheit").addClass("wi-celsius");
+}
+
 function updateConditionIcon(condition) {
 	switch(condition) {
 		case 'drizzle':
-	      $("#conditionIcon").addClass("wi-sprinkle wi");
+	      $("#conditionIcon").removeClass().addClass("wi-sprinkle wi");
 	      break;
 	    case 'clouds':
-	      $("#conditionIcon").addClass("wi-cloudy wi");
+	      $("#conditionIcon").removeClass().addClass("wi-cloudy wi");
 	      break;
 	    case 'rain':
-	      $("#conditionIcon").addClass("wi-showers wi");
+	      $("#conditionIcon").removeClass().addClass("wi-showers wi");
 	      break;
 	    case 'snow':
-	      $("#conditionIcon").addClass("wi-snow wi");
+	      $("#conditionIcon").removeClass().addClass("wi-snow wi");
 	      break;
 	    case 'clear':
-	      $("#conditionIcon").addClass("wi-day-sunny wi");
+	      $("#conditionIcon").removeClass().addClass("wi-day-sunny wi");
 	      break;
 	    case 'thunderstom':
-	      $("#conditionIcon").addClass("wi-storm-showers wi");
+	      $("#conditionIcon").removeClass().addClass("wi-storm-showers wi");
 	      break;
 	    default:
 	      break;
@@ -73,5 +94,5 @@ function updateConditionIcon(condition) {
 }
 
 function updateWindIcon(deg) {
-	$("#windIcon").addClass("from-" + deg + "-deg");
+	$("#windIcon").removeClass().addClass("wi wi-wind from-" + deg + "-deg");
 }
