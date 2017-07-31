@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Weather Condition</title>
+    <!-- font-awesome -->
+    <script src="https://use.fontawesome.com/f8fb285127.js"></script>
+    <!-- Bootstrap3.3.7 CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/yinan.css">
+    <link rel="stylesheet" href="css/weather-icons.min.css">
+    <link rel="stylesheet" href="css/weather-icons-wind.min.css">
+  </head>
+  <body id="top">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <i class="fa fa-map-marker" aria-hidden="true"></i><span id="location"></span>
+        </div>
+        <div class="col-sm-4">
+          <i aria-hidden="true" id="conditionIcon"></i><span id="condition"></span>
+        </div>
+        <div class="col-sm-4">
+          <i class="fa fa-thermometer-quarter" aria-hidden="true"></i> <span id="temperature">20</span> <a href="#" ><i id="tempUnit" class="wi wi-celsius" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <i class="wi wi-day-sunny" aria-hidden="true"></i><span id="sunrise"></span>
+        </div>
+        <div class="col-sm-4">
+          <i class="wi wi-horizon" aria-hidden="true"></i><span id="sunset"></span>
+        </div>
+        <div class="col-sm-4">
+          <i class="wi wi-wind from-90-deg" aria-hidden="true"></i><span id="wind"></span>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--jQuery Easing Plugin used in freelancer_yinan.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/yinan.js"></script>
+  </body>
+</html>
